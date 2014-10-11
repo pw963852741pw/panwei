@@ -1,0 +1,41 @@
+	private static void scanFile(String path) {
+		try {
+			File file = new File(path);
+			if(!file.exists())
+			{
+				return;
+			}
+			for (File subFile : file.listFiles()) 
+			{
+				if (subFile.isDirectory()) 
+				{
+					if (isQualifiedDirectory(subFile)) 
+					{
+						scanFile(subFile.getAbsolutePath());
+					}
+				} else if (subFile.length() >= AppPreference.getMinSize())
+				{
+			
+					if (isQualifiedFile(subFile))
+					{
+						insertFileToLibrary(subFile);					
+					}				
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	private static boolean isQualifiedDirectory(File file) {
+		if (file.getName().startsWith(".")
+				|| file.getName().equalsIgnoreCase("cache")
+				|| file.getName().startsWith("com."))
+			return false;
+		if (file.isHidden())
+			return false;
+		if (blackList.contains(file.getPath().toLowerCase())
+				|| file.getAbsolutePath().split("/").length > 6)
+			return false;
+		return true;
+	}

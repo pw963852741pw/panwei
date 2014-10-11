@@ -1,0 +1,58 @@
+	public static boolean sendWifiInfo(String url, String username,
+			String password, String security_mode)
+	{
+
+		boolean isOk = false;
+		final HttpParams httpParams = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(httpParams, 3000);
+		HttpConnectionParams.setSoTimeout(httpParams, 3000);
+		HttpConnectionParams.setSocketBufferSize(httpParams, 8192);
+
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		httpClient.setParams(httpParams);
+
+		HttpPost httpPost = new HttpPost(url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		/*nvps.add(new BasicNameValuePair("ApUsername", "QAP_01D6F0"));
+		nvps.add(new BasicNameValuePair("ApPassword", "87654321"));*/
+		nvps.add(new BasicNameValuePair("Username", username));
+		nvps.add(new BasicNameValuePair("Password", password));
+		nvps.add(new BasicNameValuePair("Security Mode", security_mode));
+				
+		try
+		{
+			httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+			HttpResponse response = httpClient.execute(httpPost);
+			if (response != null)
+			{
+				final StatusLine statusLine = response.getStatusLine();
+				if (statusLine != null && statusLine.getStatusCode() == 200)
+				{
+					isOk = true;
+					InputStream in = response.getEntity().getContent();
+					ByteArrayOutputStream bos = new ByteArrayOutputStream();
+					byte[] buffer = new byte[1024];
+					int len;
+					while ((len = in.read(buffer)) != -1)
+					{
+						bos.write(buffer, 0, len);
+					}
+					String serialNum = new String(bos.toByteArray());
+					in.close();
+					bos.close();
+				}
+				
+			}
+		} catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		} catch (ClientProtocolException e)
+		{
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return isOk;
+	}

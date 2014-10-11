@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/frame_loading" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/rotate_loading_360"
+            android:indeterminateDuration="1800" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/rotate_loading_github"
+            android:indeterminateDuration="1800" />
+    </LinearLayout>
+
+    <com.storm.ui.CustomClipLoading
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.storm.ui.ProgressWheel
+        android:id="@+id/progress_bar_one"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        ProgressWheel:barColor="#222"
+        ProgressWheel:barLength="30dp"
+        ProgressWheel:barWidth="6dp"
+        ProgressWheel:delayMillis="75"
+        ProgressWheel:rimColor="#4000"
+        ProgressWheel:rimWidth="2dp"
+        ProgressWheel:spinSpeed="20dp"
+        ProgressWheel:textColor="#222222"
+        ProgressWheel:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="start" />
+
+        <com.storm.ui.ProgressWheel
+            android:id="@+id/progress_bar_two"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            ProgressWheel:barColor="#339BB9"
+            ProgressWheel:barLength="60dp"
+            ProgressWheel:barWidth="15dp"
+            ProgressWheel:rimColor="#44000000"
+            ProgressWheel:rimWidth="15dp"
+            ProgressWheel:spinSpeed="3dp"
+            ProgressWheel:text="click"
+            ProgressWheel:textColor="#222222"
+            ProgressWheel:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

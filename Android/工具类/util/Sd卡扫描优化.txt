@@ -1,0 +1,94 @@
+
+	private static boolean isQualifiedDirectory(File file) {
+		if (file.getName().startsWith(".")
+				|| file.getName().equalsIgnoreCase("cache")
+				|| file.getName().startsWith("com."))
+			return false;
+		if (file.isHidden())
+			return false;
+		if (blackList.contains(file.getPath().toLowerCase())
+				|| file.getAbsolutePath().split("/").length > 6)
+			return false;
+		return true;
+	}
+	
+	private static void getBlacklist() {
+		String root = Environment.getExternalStorageDirectory().getPath();
+		blackList.add(root + "/lost.dir");
+		blackList.add(root + "/android");
+		blackList.add(root + "/brut.googlemaps");
+		blackList.add(root + "/navione");
+		blackList.add(root + "/picstore");
+		blackList.add(root + "/tencent");
+		blackList.add(root + "/qzone");
+	}
+
+		private static boolean isQualifiedFile(File file) {
+		if (file.getName().startsWith("."))
+			return false;
+		if (file.isHidden())
+			return false;
+		String tt = MimeUtil.getMimeFromPath(file.getAbsolutePath());
+		if (tt.startsWith("*/*")) {
+			return false;
+		}
+		return true;
+	}
+	
+	Vector<File> stack = new Vector<File>();
+	File allFile;
+	ExecutorService threadPool;
+		if (!allFile.exists()) {
+			allFile = Environment.getExternalStorageDirectory();
+		}
+		stack.add(allFile);
+		getBlacklist();
+		threadPool = Executors.newFixedThreadPool(3);
+				threadPool.execute(new Search());
+		threadPool.shutdown();
+
+			class Search implements Runnable {
+		@Override
+		public void run() {
+			if (!stack.isEmpty()) {
+				File parent = stack.get(0);
+				stack.remove(0);
+				File[] files = parent.listFiles();
+				if (null == files)
+					return;
+				for (File f : files) {
+					if (f.isDirectory()) {
+						if (isQualifiedDirectory(f)) {
+							stack.add(f);
+							if (MainActivity.threadPool != null
+									&& !MainActivity.threadPool.isShutdown())
+								threadPool.execute(new Search());
+						}
+					} else {
+						if (isQualifiedFile(f)) {
+							fileDates.add(f);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+		
+			public static String[] getMusicExtension() {
+		String musicExtension = PREF != null ? PREF.getString("music_ext", "") : "";
+		if (PREF != null && musicExtension.trim().isEmpty()) {
+			musicExtension = "mp3;wma;midi;wav;mid;midi;flac;";
+			PREF.edit().putString("music_ext", musicExtension).commit();
+		}
+		return musicExtension.split(";");
+	}
+	
+			for (String music_ext : AppPreference.getMusicExtension())
+			if (!music_ext.trim().isEmpty())
+				m_musicMap.add(music_ext);
+				
+				if (m_musicMap.contains(fileExtension))
+				
+				

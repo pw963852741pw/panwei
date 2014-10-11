@@ -1,0 +1,11 @@
+	private boolean checkNetWorkOk()
+	{
+		ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = manager.getActiveNetworkInfo();
+
+		if (info != null && info.isConnected())
+		{
+			return true;
+		}
+		return false;
+	}

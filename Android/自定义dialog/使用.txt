@@ -1,0 +1,7 @@
+	public void showDeviceControlDialog(){
+		DeviceControlDialog mdialog=new DeviceControlDialog(this, R.style.dialog);
+		Window window=mdialog.getWindow();
+		window.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM);
+		mdialog.setCanceledOnTouchOutside(true);
+		mdialog.show();
+	}

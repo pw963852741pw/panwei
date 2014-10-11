@@ -1,0 +1,3 @@
+1、ClipDrawable方式 实现裁剪
+2、重新定义progressbar的方式
+3、直接用drawbitmap方法，将一张裁剪的图片盖在另外一张上面
